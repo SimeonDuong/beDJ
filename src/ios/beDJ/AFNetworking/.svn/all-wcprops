@@ -1,0 +1,131 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/beDJ/svn/!svn/ver/777/ios_client/beDJ/beDJ/AFNetworking
+END
+AFHTTPClient.m
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/beDJ/svn/!svn/ver/777/ios_client/beDJ/beDJ/AFNetworking/AFHTTPClient.m
+END
+AFNetworking.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/beDJ/svn/!svn/ver/777/ios_client/beDJ/beDJ/AFNetworking/AFNetworking.h
+END
+AFXMLRequestOperation.h
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/beDJ/svn/!svn/ver/777/ios_client/beDJ/beDJ/AFNetworking/AFXMLRequestOperation.h
+END
+AFNetworkActivityIndicatorManager.h
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/beDJ/svn/!svn/ver/777/ios_client/beDJ/beDJ/AFNetworking/AFNetworkActivityIndicatorManager.h
+END
+UIImageView+AFNetworking.h
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/beDJ/svn/!svn/ver/777/ios_client/beDJ/beDJ/AFNetworking/UIImageView+AFNetworking.h
+END
+AFXMLRequestOperation.m
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/beDJ/svn/!svn/ver/777/ios_client/beDJ/beDJ/AFNetworking/AFXMLRequestOperation.m
+END
+AFNetworkActivityIndicatorManager.m
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/beDJ/svn/!svn/ver/777/ios_client/beDJ/beDJ/AFNetworking/AFNetworkActivityIndicatorManager.m
+END
+AFJSONRequestOperation.h
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/beDJ/svn/!svn/ver/777/ios_client/beDJ/beDJ/AFNetworking/AFJSONRequestOperation.h
+END
+AFURLConnectionOperation.h
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/beDJ/svn/!svn/ver/777/ios_client/beDJ/beDJ/AFNetworking/AFURLConnectionOperation.h
+END
+UIImageView+AFNetworking.m
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/beDJ/svn/!svn/ver/777/ios_client/beDJ/beDJ/AFNetworking/UIImageView+AFNetworking.m
+END
+AFJSONUtilities.h
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/beDJ/svn/!svn/ver/777/ios_client/beDJ/beDJ/AFNetworking/AFJSONUtilities.h
+END
+AFJSONRequestOperation.m
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/beDJ/svn/!svn/ver/777/ios_client/beDJ/beDJ/AFNetworking/AFJSONRequestOperation.m
+END
+AFURLConnectionOperation.m
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/beDJ/svn/!svn/ver/777/ios_client/beDJ/beDJ/AFNetworking/AFURLConnectionOperation.m
+END
+AFHTTPRequestOperation.h
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/beDJ/svn/!svn/ver/777/ios_client/beDJ/beDJ/AFNetworking/AFHTTPRequestOperation.h
+END
+AFPropertyListRequestOperation.h
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/beDJ/svn/!svn/ver/777/ios_client/beDJ/beDJ/AFNetworking/AFPropertyListRequestOperation.h
+END
+AFJSONUtilities.m
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/beDJ/svn/!svn/ver/777/ios_client/beDJ/beDJ/AFNetworking/AFJSONUtilities.m
+END
+AFImageRequestOperation.h
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/beDJ/svn/!svn/ver/777/ios_client/beDJ/beDJ/AFNetworking/AFImageRequestOperation.h
+END
+AFHTTPRequestOperation.m
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/beDJ/svn/!svn/ver/777/ios_client/beDJ/beDJ/AFNetworking/AFHTTPRequestOperation.m
+END
+AFHTTPClient.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/beDJ/svn/!svn/ver/777/ios_client/beDJ/beDJ/AFNetworking/AFHTTPClient.h
+END
+AFPropertyListRequestOperation.m
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/beDJ/svn/!svn/ver/777/ios_client/beDJ/beDJ/AFNetworking/AFPropertyListRequestOperation.m
+END
+AFImageRequestOperation.m
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/beDJ/svn/!svn/ver/777/ios_client/beDJ/beDJ/AFNetworking/AFImageRequestOperation.m
+END

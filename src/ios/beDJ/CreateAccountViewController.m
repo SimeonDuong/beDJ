@@ -1,0 +1,188 @@
+//
+//  CreateAccountViewController.m
+//  beDJ
+//
+//  Created by Garrett Galow on 5/1/12.
+//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//
+
+#import "CreateAccountViewController.h"
+#import "LoginViewController.h"
+
+#define kOFFSET_FOR_KEYBOARD 50
+
+@interface CreateAccountViewController ()
+
+@end
+
+@implementation CreateAccountViewController
+
+-(id) init {
+    self = [super initWithNibName:@"CreateAccountViewController" bundle:nil];
+    if (self)
+    {
+        // Further initialization if needed
+    }
+    return self;
+}
+
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
+-(IBAction)editingEnded:(id)sender{
+    [sender resignFirstResponder]; 
+}
+
+-(BOOL) validInput {
+    UIAlertView* badInput;
+    if ([usernameField.text isEqualToString:@""]) {
+        
+        badInput = [[UIAlertView alloc] initWithTitle:@"Choose a username." message:@"You must select a username." delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        
+    } else if ([passwordField.text isEqualToString:@""] || [password2Field.text isEqualToString:@""]) {
+        
+        badInput = [[UIAlertView alloc] initWithTitle:@"Choose a password." message:@"You must select a password." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        
+    } else if (![passwordField.text isEqualToString:password2Field.text]) {
+        
+        badInput = [[UIAlertView alloc] initWithTitle:@"Passwords do not match." message:@"The password you provided in each box did not match. Please check your password and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        
+    } else if ([emailField.text isEqualToString:@""] || NSEqualRanges([emailField.text rangeOfString:@"@"], NSMakeRange(NSNotFound, 0))) {
+        
+        badInput = [[UIAlertView alloc] initWithTitle:@"Invalid email address" message:@"You email address is invalid. Please select a valid email address." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    }
+    
+    
+    if (badInput != nil) {
+        [badInput show];
+        return NO;
+    } else {
+        return YES;
+    }
+    
+}
+
+-(IBAction) createAccountButtonPressed:(id) sender {
+    if (![self validInput]) {
+        return;
+    }
+    //Eventually switch hash from after to before
+    NSString* fullSaltPasswordString = [LoginViewController saltString:passwordField.text];
+    [[Server sharedInstance] createAccount:usernameField.text andPassword:fullSaltPasswordString andEmail:emailField.text withSender:self];
+    [loadingView setHidden:false];
+    [loadingIndicator startAnimating];
+}
+
+-(IBAction) goBackButtonPressed:(id)sender {
+    [[self presentingViewController] dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void) textFieldDidBeginEditing:(UITextField *)textField {
+   
+    if (textField == password2Field || textField == emailField) {
+        NSTimeInterval animationDuration = 0.300000011920929;
+        CGRect frame = self.view.frame;
+        frame.origin.y -= kOFFSET_FOR_KEYBOARD;
+        frame.size.height += kOFFSET_FOR_KEYBOARD;
+        [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+        [UIView setAnimationDuration:animationDuration];
+        self.view.frame = frame;
+        [UIView commitAnimations];
+    }
+}
+
+-(void)textFieldDidEndEditing:(UITextField *)textField {
+    
+    if (textField == password2Field || textField == emailField) {
+        NSTimeInterval animationDuration = 0.300000011920929;
+        CGRect frame = self.view.frame;
+        frame.origin.y += kOFFSET_FOR_KEYBOARD;
+        frame.size.height -= kOFFSET_FOR_KEYBOARD;
+        [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
+        [UIView setAnimationDuration:animationDuration];
+        self.view.frame = frame;
+        [UIView commitAnimations];
+    }
+}
+
+-(IBAction) dismissKeyboard:(id)sender {
+    [passwordField resignFirstResponder];
+    [usernameField resignFirstResponder];
+    [password2Field resignFirstResponder];
+    [emailField resignFirstResponder];
+}
+
+//- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+//    UITouch * touch = [touches anyObject];
+//    if(touch.phase == UITouchPhaseBegan) {
+//        [passwordField resignFirstResponder];
+//        [usernameField resignFirstResponder];
+//        [password2Field resignFirstResponder];
+//        [emailField resignFirstResponder];
+//    }
+//}
+
+-(void) serverResponse:(NSMutableDictionary *)responseData forRequest:(ServerRequestType)requestType {
+    if (([[[responseData valueForKey:@"Status"] valueForKey:@"Code"] intValue] == 0) && (![[[responseData valueForKey:@"Status"] valueForKey:@"Code"] isEqual:[NSNull null]])) {
+        
+        [[NSUserDefaults standardUserDefaults] setValue:[[responseData valueForKey:@"Data"] valueForKey:@"USER_id"] forKey:@"USER_id"];
+        
+        [[NSUserDefaults standardUserDefaults] setValue:usernameField.text forKey:@"username"];
+
+        [[NSUserDefaults standardUserDefaults] setValue:[LoginViewController saltString:passwordField.text] forKey:@"password"];
+        
+        [[NSUserDefaults standardUserDefaults] setValue:emailField.text forKey:@"email"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        [loadingIndicator stopAnimating];
+        [loadingView setHidden:TRUE];
+        
+        [[[self presentingViewController] presentingViewController] dismissViewControllerAnimated:YES completion:NULL];
+        [[self presentingViewController] dismissViewControllerAnimated:YES completion:NULL];
+        
+
+        return;
+    } else {
+        [loadingIndicator stopAnimating];
+        [loadingView setHidden:TRUE];
+        //Tell user something went wrong.
+        if (([[[responseData valueForKey:@"Status"] valueForKey:@"Code"] intValue] == 3)) {
+            UIAlertView* usernameTaken = [[UIAlertView alloc] initWithTitle:@"Username Taken" message:@"That username has already been taken. Please pick another." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [usernameTaken show];
+        } else {
+            UIAlertView* incorrectLogin = [[UIAlertView alloc] initWithTitle:@"Error" message:@"There was an error in creating your account. Please try again." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+            [incorrectLogin show];
+        }
+    }
+    
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
+    [usernameField setAutocorrectionType:UITextAutocorrectionTypeNo];
+    [passwordField setAutocorrectionType:UITextAutocorrectionTypeNo];
+    [password2Field setAutocorrectionType:UITextAutocorrectionTypeNo];
+}
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+@end
