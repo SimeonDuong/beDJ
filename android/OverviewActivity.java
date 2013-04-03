@@ -1,0 +1,64 @@
+package com.symplexum.beDJ;
+
+import android.app.Activity;
+import android.app.TabActivity;
+import android.content.Intent;
+import android.content.res.Resources;
+import android.os.Bundle;
+import android.widget.TabHost;
+
+import com.domain.beDJ.R;
+
+public class OverviewActivity extends TabActivity{
+
+	    /** Called when the activity is first created. */
+	    @Override
+	    	public void onCreate(Bundle savedInstanceState) {
+	    	    super.onCreate(savedInstanceState);
+	    	    setContentView(R.layout.overview);
+	    	    Resources res = getResources(); // Resource object to get Drawables
+	    	    TabHost tabHost = getTabHost();  // The activity TabHost
+	    	    TabHost.TabSpec spec;  // Resusable TabSpec for each tab
+	    	    Intent intent;  // Reusable Intent for each tab
+
+	    	    // Create an Intent to launch an Activity for the tab (to be reused)
+	    	    intent = new Intent().setClass(this, LocationActivity.class);
+
+	    	    // Initialize a TabSpec for each tab and add it to the TabHost
+	    	    spec = tabHost.newTabSpec("locations").setIndicator("Locations",
+	    	                      res.getDrawable(R.drawable.ic_tab_playlist))
+	    	                     .setContent(intent);
+	    	    tabHost.addTab(spec);
+
+	    	    // Do the same for the other tabs
+	    	    intent = new Intent().setClass(this,PlaylistActivity.class);
+	    	    spec = tabHost.newTabSpec("playlist").setIndicator("Playlist",
+	    	                      res.getDrawable(R.drawable.ic_tab_playlist))
+	    	                  .setContent(intent);
+	    	    tabHost.addTab(spec);
+	    	    
+	    	    intent = new Intent().setClass(this, QueueActivity.class);
+	    	    spec = tabHost.newTabSpec("queue").setIndicator("Queue",
+	    	                      res.getDrawable(R.drawable.ic_tab_playlist))
+	    	                  .setContent(intent);
+	    	    tabHost.addTab(spec);
+
+	    	    intent = new Intent().setClass(this, ProfileActivity.class);
+	    	    spec = tabHost.newTabSpec("profile").setIndicator("Profile",
+	    	                      res.getDrawable(R.drawable.ic_tab_playlist))
+	    	                  .setContent(intent);
+	    	    tabHost.addTab(spec);
+	    	    
+	    	    intent = new Intent().setClass(this, NotificationActivity.class);
+	    	    spec = tabHost.newTabSpec("messages").setIndicator("Messages",
+	    	                      res.getDrawable(R.drawable.ic_tab_playlist))
+	    	                  .setContent(intent);
+	    	    tabHost.addTab(spec);
+	    	    
+	    	    
+
+	    	    tabHost.setCurrentTab(0);
+	    	}
+	  
+	}
+
